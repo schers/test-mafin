@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  migrate:
+    build: docker/migrate
+    container_name: 'go_test_mafin_migrate'
+    depends_on:
+      - postgres
+    volumes:
+      - ./migrations:/migrations
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+  postgres:
+    image: postgres:alpine
+    container_name: 'go_test_mafin_postgres'
+    volumes:
+      - go_test_mafin_pgdata:/var/lib/postgresql/data:rw
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
+volumes:
+  go_test_mafin_pgdata:
+    driver: local
