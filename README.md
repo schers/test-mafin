@@ -15,10 +15,10 @@ In response, you should receive something like the following json:
 
 `{
      "files": {
-         "filename": "image.jpg",
+         "filename": "image.png",
          "id": 1,
          "size": 21744,
-         "url": "/image/2020/5p/17nvwu/image.jpg"
+         "url": "/image/2020/5p/17nvwu/image.png"
      },
      "status": "ok"
  }`
