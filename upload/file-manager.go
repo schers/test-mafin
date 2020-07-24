@@ -43,6 +43,8 @@ func (f *File) Move(src string) error {
 	if err != nil {
 		return err
 	}
+	defer file.Close()
+
 	fi, err := file.Stat()
 	if err != nil {
 		return err

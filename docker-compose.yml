@@ -18,6 +18,8 @@ services:
     container_name: 'go_test_mafin_postgres'
     volumes:
       - go_test_mafin_pgdata:/var/lib/postgresql/data:rw
+    ports:
+      - ${POSTGRES_LOCAL_PORT}:5432
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

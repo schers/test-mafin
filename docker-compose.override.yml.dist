@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
-  postgres:
-    ports:
-      - ${POSTGRES_LOCAL_PORT}:5432
+  app:
+      build: ./
+      container_name: 'go_test_mafin_app'
+      depends_on:
+        - postgres
+        - migrate
+      ports:
+        - 8080:8080

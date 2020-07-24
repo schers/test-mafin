@@ -12,32 +12,35 @@ import (
 	"os"
 )
 
-var storage string
+var storage, host string
 
 func init() {
 	if err := godotenv.Load(); err != nil {
-		log.Panic("No .env file found")
+		log.Println("No .env file found")
 	}
 
 	dataSourceName, ok := os.LookupEnv("DB_URL")
 	if !ok {
-		log.Panic("No db init")
+		log.Panic("Env variable DB_URL undefined")
 	}
 
 	storage, ok = os.LookupEnv("STORAGE")
 	if !ok {
-		log.Panic("No storage init")
+		log.Panic("Env variable STORAGE undefined")
+	}
+
+	host, ok = os.LookupEnv("HOST")
+	if !ok {
+		log.Panic("Env variable HOST undefined")
 	}
 
 	err := db.InitDB(dataSourceName)
 	if err != nil {
-
+		log.Panicf("No DB init. Error:%s", err.Error())
 	}
 }
 
 func main() {
-	host := "localhost:8080"
-
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 	r.Use(static.Serve("/", static.LocalFile(storage, false)))

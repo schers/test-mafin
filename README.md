@@ -24,3 +24,6 @@ In response, you should receive something like the following json:
  }`
  
  By "url" you can get the downloaded file
+ 
+ If you want to run the application in docker, copy the docker-compose.override.yml.dist file and remove the .dist extension.
+ Then run `docker-compose up -d --build`
