@@ -1,7 +1,7 @@
 # test-mafin
 Test task for mafin company
 
-**how to use**
+**How to use**
 
 Send a POST request with the following headers on localhost:8080:
 
