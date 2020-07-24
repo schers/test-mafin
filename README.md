@@ -3,11 +3,12 @@ Test task for mafin company
 
 **how to use**
 
-Send a POST request with the following headers:
+Send a POST request with the following headers on localhost:8080:
 
-`POST /files HTTP/1.1
+`POST /api/v1/image/upload HTTP/1.1
 Content-Length: 21744
-Content-Disposition: attachment; filename="image.jpg"
+Content-Type: image/png
+Content-Disposition: image; filename="image.png"
 ...bytes...`
 
 In response, you should receive something like the following json:
