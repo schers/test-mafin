@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
@@ -55,6 +56,12 @@ func main() {
 func uploadImage(context *gin.Context) {
 	originalFile, err := upload.Upload(context.Request, storage)
 	if err != nil {
+		initErrorResponse(context, err, http.StatusBadRequest)
+		return
+	}
+
+	if originalFile.BaseMime != "image" {
+		err = errors.New("file is not an image")
 		initErrorResponse(context, err, http.StatusBadRequest)
 		return
 	}
