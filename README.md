@@ -1,5 +1,5 @@
-# test-mafin
-Test task for mafin company
+# test
+Test task
 
 **How to use**
 
