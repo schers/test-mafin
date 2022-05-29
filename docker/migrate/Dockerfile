@@ -11,6 +11,4 @@ RUN chmod +x /usr/bin/wait-for-it
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-RUN mkdir /migrations
-
 ENTRYPOINT ["/entrypoint.sh"]

@@ -1,6 +1,17 @@
-FROM golang:1.14-alpine3.11 AS builder
+FROM golang:1.18.2-alpine3.16 AS builder
 
-RUN apk add --no-cache git gcc musl-dev
+RUN apk --update --no-cache add ca-certificates openssl git tzdata gcc musl-dev
+
+ARG cert_location=/usr/local/share/ca-certificates
+
+# Get certificate from "github.com"
+RUN openssl s_client -showcerts -connect github.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > ${cert_location}/github.crt
+# Get certificate from "proxy.golang.org"
+RUN openssl s_client -showcerts -connect proxy.golang.org:443 </dev/null 2>/dev/null|openssl x509 -outform PEM >  ${cert_location}/proxy.golang.crt
+# Get certificate from "sum.golang.org"
+RUN openssl s_client -showcerts -connect sum.golang.org:443 </dev/null 2>/dev/null|openssl x509 -outform PEM >  ${cert_location}/sum.golang.crt
+
+RUN update-ca-certificates
 
 WORKDIR /go/src/github.com/schers/test-mafin
 
@@ -14,9 +25,9 @@ COPY . ./
 
 RUN go build -a -o build/testmafin ./cmd
 
-FROM alpine:3.11
+FROM alpine:3.16
 
-RUN apk add --no-cache ca-certificates file
+RUN apk --no-cache add ca-certificates file
 
 EXPOSE 8080
 
