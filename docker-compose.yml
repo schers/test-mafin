@@ -1,6 +1,18 @@
 version: '3.8'
 
 services:
+  app:
+    build: ./
+    container_name: 'go_test_mafin_app'
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+
   postgres:
     image: postgres:alpine
     container_name: 'go_test_mafin_postgres'

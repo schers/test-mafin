@@ -1,3 +1,4 @@
+#depricated
 FROM migrate/migrate
 
 RUN set -xe \
